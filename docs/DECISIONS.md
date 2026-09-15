@@ -4,6 +4,35 @@
 
 ---
 
+## 2026-09-16 — T-02 폰트·정적 에셋 서빙 경로
+
+### 한글 픽셀 폰트: Galmuri
+
+- 후보로 Galmuri(갈무리)·DungGeunMo·네오둥근을 검토했고, 사용자 확인 후 **Galmuri**로 확정했다.
+- 처음엔 `Galmuri9Bitmap-Regular-2.40.4.ttf`(OS 설치용 임베디드 비트맵 전용 변형)를 받았으나, 브라우저의
+  OTS(OpenType Sanitizer)가 `OTS parsing error: glyf: zero-length table`로 거부해 폰트가 로드되지 않고
+  폴백 폰트로만 그려지는 문제를 발견했다(dev 서버 콘솔 경고로 확인). Bitmap 변형은 웹용이 아니라 OS/에디터에
+  폰트로 설치해 쓰는 용도임을 뒤늦게 확인했다.
+- `github.com/quiple/galmuri`가 배포하는 공식 `dist/galmuri.css`가 실제로 가리키는 `Galmuri9.woff2`
+  (스케일러블 외곽선, 10px 디자인 크기, 420KB)로 교체해 `assets/fonts/Galmuri9.woff2`에 저장했다.
+  10px 디자인 크기에 맞춰 정확히 `fontSize: '10px'`로만 렌더링하면 힌팅이 픽셀 격자에 맞아떨어져
+  흐려지지 않는다(NFR-09, T-02 완료 조건의 "블러 없이"). 실제로 브라우저에서 확인했다.
+- 라이선스는 OFL-1.1이며 `assets/fonts/LICENSE-galmuri.txt`로 함께 커밋했다(NFR-09).
+- Canvas 텍스트는 `font-display`의 영향을 받지 않고(폴백 폰트로 그려지면 이후 재시도가 없다), 폰트가
+  로드되기 전에 첫 프레임이 그려지면 영구히 흐린 폴백 폰트로 남는다. 이를 막기 위해 `src/main.ts`에서
+  `Phaser.Game` 생성 전에 `document.fonts.load('10px Galmuri9')`를 `await`한다.
+
+### 정적 에셋 서빙: `assets/`를 Vite `publicDir`로 지정
+
+- `CLAUDE.md`의 폴더 구조는 임시 에셋 위치를 최상위 `assets/`로 고정하지만, Vite 기본 `publicDir`는
+  `public/`이라 `assets/`의 파일은 그대로는 서빙되지 않는다.
+- `vite.config.ts`에 `publicDir: 'assets'`를 추가해 `assets/` 내용을 빌드 결과물 루트에 그대로 복사하고
+  개발 서버에서도 루트 경로로 서빙되게 했다(예: `assets/fonts/Galmuri9Bitmap-Regular.ttf` →
+  `/fonts/Galmuri9Bitmap-Regular.ttf`). `ASSET_MANIFEST.md`도 함께 퍼블릭 경로로 노출되지만, 클라이언트
+  전용 정적 배포(NFR-08) 게임이라 문제되지 않는다.
+
+---
+
 ## 2026-09-16 — T-00/T-01 기술 스택 확정
 
 ### 설치 버전
