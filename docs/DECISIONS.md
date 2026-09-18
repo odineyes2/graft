@@ -4,6 +4,52 @@
 
 ---
 
+## 2026-09-18 — T-21 저장·불러오기 범위
+
+### 런 저장은 RunState뿐 아니라 그 시점의 RngState도 함께 담아야 한다
+
+CLAUDE.md 아키텍처 규칙("게임 상태 변경은 (state, action, rng) => newState
+형태의 함수로만 한다")에 따라 RNG는 RunState에 들어 있지 않고 항상 외부
+인자로 넘긴다. 그런데 "저장 → 불러오기 후 다음 밤 결과가 저장 전 진행과
+동일해야 한다"(T-21 완료 조건)를 만족하려면, 저장 시점 이후로 이어질
+난수 시퀀스가 저장 전과 똑같이 재현돼야 한다 — 즉 원래 시드로 새
+`createRng()`를 만들면 안 되고, 저장 시점의 `Rng.getState()` 값을 그대로
+복원해야 한다. 그래서 `saveRun()`은 `RunState`와 `RngState`(T-11에서
+이미 만들어 둔 직렬화 가능한 타입)를 함께 받아 하나의 저장 데이터로
+묶는다. 호출자(지금은 테스트, 나중에는 T-40의 런 진행 루프)가 진행 중인
+Rng 인스턴스의 `getState()`를 넘겨야 한다는 뜻이다.
+
+### 저장 포맷 버전과 RunState.schemaVersion은 별개다
+
+`RunState`는 이미 자체 `schemaVersion` 필드를 가지고 있다(T-10). 이는
+"런 데이터의 내부 모양"이 바뀔 때 쓰는 버전이고, `RUN_SAVE_SCHEMA_VERSION`
+(runSave.ts)은 "RunState+RngState를 한데 묶는 저장 포맷 자체"가 바뀔 때
+쓰는 버전이다. 둘 다 1로 시작하지만 독립적으로 올라갈 수 있다 — 예를 들어
+저장 포맷에 새 필드(예: 저장 시각)를 추가하면 RUN_SAVE_SCHEMA_VERSION만
+오르고 RunState.schemaVersion은 그대로일 수 있다.
+
+### localStorage 접근은 KeyValueStorage 인터페이스 뒤에 숨겼다
+
+Node 테스트 환경(`vite.config.ts`의 `test.environment: 'node'`)에는
+`localStorage`가 없다. jsdom 같은 새 의존성을 추가하는 대신,
+`saveRun`/`loadRun`/`saveLegacy`/`loadLegacy`가 `KeyValueStorage`(
+`getItem`/`setItem`/`removeItem`만 있는 최소 인터페이스)를 선택 인자로
+받게 했다. 기본값은 실제 `localStorage`이고, 테스트는 메모리 기반 가짜
+구현을 넘긴다. `src/save/`만 브라우저 의존 코드를 담당한다는 CLAUDE.md
+규칙은 그대로 지킨다 — `src/core/`는 이 인터페이스조차 모른다.
+
+### 손상되거나 미래 버전인 저장 데이터는 조용히 폐기한다
+
+NFR-05("구버전 저장 데이터는 마이그레이션하거나 안전하게 폐기 안내한다")에
+따라, JSON 파싱 실패·필수 필드 누락·마이그레이션 경로가 없는 버전(지금은
+버전 1만 있어 사실상 모든 구버전)·현재 게임보다 높은 버전(미래 게임에서
+만든 저장) 네 경우 모두 해당 localStorage 키를 지우고 null(런) 또는 빈
+유산 상태(유산)를 반환한다. "안내"는 UI 문구로 보여줘야 하는데 그건
+화면이 생기는 T-40/T-41의 몫이라, 여기서는 그 판단에 쓸 수 있는 신호
+(null 반환)만 만들어 뒀다.
+
+---
+
 ## 2026-09-18 — T-20 헤드리스 시뮬레이터
 
 ### advanceNight()를 core에 추가해 T-13~T-19를 조립했다
