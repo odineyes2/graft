@@ -2,8 +2,8 @@
  * src/scenes/TitleScene.ts
  *
  * 타이틀 화면: 새 런, 이어하기, 유산, 설정 (FR-UI-01).
- * T-30 산출물 — 실제 런 시작 로직(T-40)은 아직 연결하지 않고 은신처로
- * 이동만 한다.
+ * "새 런"/"이어하기"는 T-32부터 runStateStore로 실제 RunState를 만들거나
+ * 불러온다. 유산 보너스 선택 같은 나머지 시작 흐름은 T-40 몫이다.
  */
 
 import { palette } from '../ui/palette';
@@ -12,6 +12,7 @@ import { TerminalScene } from '../ui/TerminalScene';
 import { createButton } from '../ui/button';
 import { ko } from '../i18n/ko';
 import { loadRun } from '../save/runSave';
+import { continueRun, startNewRun } from './runStateStore';
 import { navigateTo, SCENE_KEYS } from './navigation';
 
 interface MenuItem {
@@ -39,10 +40,18 @@ export class TitleScene extends TerminalScene {
     const hasSave = this.hasSavedRun();
 
     const items: MenuItem[] = [
-      { label: ko.title.newRun, onClick: () => navigateTo(this, SCENE_KEYS.hideout) },
+      {
+        label: ko.title.newRun,
+        onClick: () => {
+          startNewRun();
+          navigateTo(this, SCENE_KEYS.hideout);
+        },
+      },
       {
         label: ko.title.continueRun,
-        onClick: () => navigateTo(this, SCENE_KEYS.hideout),
+        onClick: () => {
+          if (continueRun()) navigateTo(this, SCENE_KEYS.hideout);
+        },
         disabled: !hasSave,
       },
       { label: ko.title.legacy, onClick: () => navigateTo(this, SCENE_KEYS.legacy) },
