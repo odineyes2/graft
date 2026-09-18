@@ -59,5 +59,11 @@
     "riskyStreakPenalty": 5,
     "crewDeathPenalty": 10,
     "restLoyaltyBonus": 5
+  },
+  "rivalAi": {
+    "attackSuccessChance": 0.5,
+    "damageOnSuccess": 15,
+    "damageOnFailure": 3,
+    "capturedDistrictDefenseFraction": 0.5
   }
 }

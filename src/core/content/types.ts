@@ -222,6 +222,18 @@ export interface LoyaltySystemConfig {
   readonly restLoyaltyBonus: number;
 }
 
+/** 경쟁 갱단 AI 공격 해결 계수 (FR-AI-01~03) */
+export interface RivalAiConfig {
+  /** AI 공격이 성공할 확률 */
+  readonly attackSuccessChance: number;
+  /** 성공 시 대상 구역 방어력 감소량 */
+  readonly damageOnSuccess: number;
+  /** 실패 시 대상 구역 방어력 감소량 */
+  readonly damageOnFailure: number;
+  /** 점령 시 방어력을 구역 기본 방어력의 이 비율로 재설정한다 */
+  readonly capturedDistrictDefenseFraction: number;
+}
+
 /** 열기 자연 감소·구간별 이벤트 유발 확률 (FR-HEAT-01) */
 export interface HeatSystemConfig {
   /** 조용한 밤(행동으로 인한 열기 증가가 0)일 때 낮 열기 구간에서 감소하는 양 */
@@ -293,6 +305,7 @@ export interface BalanceConfig {
   readonly heatSystem: HeatSystemConfig;
   readonly crewRiskSystem: CrewRiskSystemConfig;
   readonly loyaltySystem: LoyaltySystemConfig;
+  readonly rivalAi: RivalAiConfig;
 }
 
 // ─── 콘텐츠 번들 ────────────────────────────────────────────────────────────────
