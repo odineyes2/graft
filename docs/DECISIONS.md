@@ -39,6 +39,53 @@ FR-LEG-02의 "시작 조직원 추가" 보너스가 구체적으로 누구를 �
 
 ---
 
+## 2026-09-18 — T-13 밤 해결 엔진 범위
+
+### resolveNight()가 다루는 것과 다루지 않는 것
+
+WORK_SPEC은 T-13의 완료 조건을 FR-ACT-01~03·FR-CREW-03~04·FR-BIZ-03으로
+한정한다. `NightReport` 타입(T-10)에는 `incomeTotal`·`expenseTotal`·
+`rivalActions`·`triggeredEventIds` 같은 이후 작업(T-14 경제, T-17 이벤트,
+T-18 AI) 몫의 필드도 이미 있어서, T-13에서는 다음과 같이 범위를 정했다.
+
+- `incomeTotal`은 이번 밤 행동에서 발생한 양수 크레딧 변화의 합으로 채운다
+  (사업 운영 수입). `expenseTotal`(급여·유지비)은 0으로 두고 T-14가 채운다.
+- `rivalActions`·`triggeredEventIds`는 빈 배열로 둔다 (T-18, T-17 몫).
+- `heat`의 자연 감소(FR-HEAT-01 조용한 밤 감소)는 다루지 않는다 (T-15 몫).
+  `report.heatDelta`는 이번 밤 행동으로 인한 변화만 합산한 값이다.
+- 승패 판정(보스 사망 등, FR-RUN-04)은 상태에 반영만 하고 `RunState.ended`는
+  건드리지 않는다 (T-19 몫).
+- `resolveNight`는 해결이 끝나면 `phase`를 `'dawn'`으로 바꾼다. `night` 번호
+  증가는 다음 계획 단계로 넘어갈 때의 몫으로 보고 여기서는 올리지 않는다.
+
+### 행동별 성공 확률·결과 등급 공식 (FR-ACT-01)
+
+`successChance = clamp(baseChance + (effectiveStat - difficulty) * statCoefficient, min, max)`
+로 정하고, 굴린 값(roll)을 성공/실패권으로 나눈 뒤 각 권 안에서
+`criticalSuccessRatio`/`criticalFailureRatio` 비율만큼을 대성공/대실패로
+잘라낸다. 계수는 전부 `src/data/balance.json`의 `actionResolution`에 있다.
+행동별 난이도(difficulty)는: 공격·정찰 = 대상 구역의 현재 방어력,
+방어 = 고정값(`defendBaseDifficulty`), 운영 = 사업 레벨에 비례한 값
+(`operateDifficultyBase + (level-1) * operateDifficultyPerLevel`).
+
+### 부상 조직원은 배치 자체가 불가능하고, 회복은 배치와 무관하게 자동 처리한다
+
+FR-CREW-04 "부상은 N밤 동안 행동 불가"를 "부상 중에는 어떤 행동도 배치할 수
+없고, `injuredNightsRemaining`은 배치 여부와 상관없이 매 밤 자동으로
+줄어든다"로 해석했다. 그 결과 '휴식' 행동은 이미 `active`인 조직원이
+선택적으로 쉬면서 인간성을 회복하는 용도로만 쓰이고, 부상 회복 자체와는
+분리된다.
+
+### 사업 특수 효과 중 일부만 T-13에서 구현한다
+
+`businesses.json`의 `specialEffect` 중 운영 해결과 직접 관련된
+`reputation_scaled_income`(보호비 징수)·`reputation_gain`(격투장)·
+`requires_hacker`(데이터 밀매)는 T-13에서 구현했다. `cyberware_discount`
+(시술소)는 사이버웨어 구매 시점(T-36, 낮 성장 메뉴)에 적용되는 효과라
+T-13 범위 밖으로 남겨둔다.
+
+---
+
 ## 2026-09-16 — T-02 폰트·정적 에셋 서빙 경로
 
 ### 한글 픽셀 폰트: Galmuri

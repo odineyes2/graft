@@ -13,5 +13,33 @@
   "legacyBonusEffects": {
     "start_credits": { "creditsDelta": 300 },
     "start_less_heat": { "heatDelta": -5 }
+  },
+  "actionResolution": {
+    "baseChance": 0.5,
+    "statCoefficient": 0.05,
+    "minChance": 0.05,
+    "maxChance": 0.95,
+    "criticalSuccessRatio": 0.2,
+    "criticalFailureRatio": 0.2,
+    "gradeMultiplier": {
+      "critical_success": 1.5,
+      "success": 1.0,
+      "failure": 0.5,
+      "critical_failure": 0
+    },
+    "minAttemptHeatMultiplier": 0.3,
+    "attackHeatBase": 8,
+    "defendHeatBase": 0,
+    "scoutHeatBase": 2,
+    "defendBaseDifficulty": 5,
+    "operateDifficultyBase": 5,
+    "operateDifficultyPerLevel": 3,
+    "capturedDistrictDefenseFraction": 0.5,
+    "maxDistrictDefenseMultiplier": 2,
+    "injuryNights": 2,
+    "deathChanceOnCriticalFailure": 0.15,
+    "restHumanityRecovery": 5,
+    "arenaReputationGain": 2,
+    "reputationIncomeScale": 0.5
   }
 }

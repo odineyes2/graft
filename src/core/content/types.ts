@@ -194,6 +194,49 @@ export interface HeatThresholds {
   readonly lockdownAt: number;
 }
 
+/** 결과 등급별 배수 (수입·피해량 등에 곱한다) */
+export interface GradeMultiplierConfig {
+  readonly critical_success: number;
+  readonly success: number;
+  readonly failure: number;
+  readonly critical_failure: number;
+}
+
+/**
+ * 행동 해결 공식의 계수 (FR-ACT-01: "수치 공식은 데이터 파일의 계수로 조정 가능해야 한다").
+ * successChance = clamp(baseChance + (effectiveStat - difficulty) * statCoefficient, minChance, maxChance)
+ * roll < successChance → 성공권 (그중 criticalSuccessRatio 비율만큼 대성공)
+ * roll >= successChance → 실패권 (그중 criticalFailureRatio 비율만큼 대실패)
+ */
+export interface ActionResolutionConfig {
+  readonly baseChance: number;
+  readonly statCoefficient: number;
+  readonly minChance: number;
+  readonly maxChance: number;
+  readonly criticalSuccessRatio: number;
+  readonly criticalFailureRatio: number;
+  readonly gradeMultiplier: GradeMultiplierConfig;
+  /** 실패해도 시도 자체로 발생하는 최소 열기 배수 (0이면 완전 실패 시 열기 0) */
+  readonly minAttemptHeatMultiplier: number;
+  readonly attackHeatBase: number;
+  readonly defendHeatBase: number;
+  readonly scoutHeatBase: number;
+  readonly defendBaseDifficulty: number;
+  readonly operateDifficultyBase: number;
+  readonly operateDifficultyPerLevel: number;
+  /** 구역 점령 시 방어력을 구역 기본 방어력의 이 비율로 재설정한다 */
+  readonly capturedDistrictDefenseFraction: number;
+  /** 방어 행동으로 올릴 수 있는 방어력 상한 (구역 기본 방어력의 배수) */
+  readonly maxDistrictDefenseMultiplier: number;
+  /** 부상 시 행동 불가 밤 수 (FR-CREW-04) */
+  readonly injuryNights: number;
+  /** 공격·방어 대실패 시 사망(부상 대신)으로 이어질 확률 */
+  readonly deathChanceOnCriticalFailure: number;
+  readonly restHumanityRecovery: number;
+  readonly arenaReputationGain: number;
+  readonly reputationIncomeScale: number;
+}
+
 export interface BalanceConfig {
   readonly startingCredits: number;
   readonly startingHeat: number;
@@ -208,6 +251,7 @@ export interface BalanceConfig {
     readonly start_credits: { readonly creditsDelta: number };
     readonly start_less_heat: { readonly heatDelta: number };
   };
+  readonly actionResolution: ActionResolutionConfig;
 }
 
 // ─── 콘텐츠 번들 ────────────────────────────────────────────────────────────────
