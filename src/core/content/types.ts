@@ -196,6 +196,16 @@ export interface HeatThresholds {
   readonly lockdownAt: number;
 }
 
+/** 열기 자연 감소·구간별 이벤트 유발 확률 (FR-HEAT-01) */
+export interface HeatSystemConfig {
+  /** 조용한 밤(행동으로 인한 열기 증가가 0)일 때 낮 열기 구간에서 감소하는 양 */
+  readonly naturalDecayAmount: number;
+  /** 40~69 구간에서 밤마다 경찰 단속 이벤트가 유발될 확률 */
+  readonly policeEventChance: number;
+  /** 70~99 구간에서 밤마다 기업 진압대 급습 이벤트가 유발될 확률 */
+  readonly raidEventChance: number;
+}
+
 /** 결과 등급별 배수 (수입·피해량 등에 곱한다) */
 export interface GradeMultiplierConfig {
   readonly critical_success: number;
@@ -254,6 +264,7 @@ export interface BalanceConfig {
     readonly start_less_heat: { readonly heatDelta: number };
   };
   readonly actionResolution: ActionResolutionConfig;
+  readonly heatSystem: HeatSystemConfig;
 }
 
 // ─── 콘텐츠 번들 ────────────────────────────────────────────────────────────────

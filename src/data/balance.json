@@ -41,5 +41,10 @@
     "restHumanityRecovery": 5,
     "arenaReputationGain": 2,
     "reputationIncomeScale": 0.5
+  },
+  "heatSystem": {
+    "naturalDecayAmount": 5,
+    "policeEventChance": 0.4,
+    "raidEventChance": 0.5
   }
 }
