@@ -3,6 +3,7 @@ import { BootScene } from './scenes/BootScene';
 import { TitleScene } from './scenes/TitleScene';
 import { HideoutScene } from './scenes/HideoutScene';
 import { MapScene } from './scenes/MapScene';
+import { NightScene } from './scenes/NightScene';
 import { PlaceholderScene } from './scenes/PlaceholderScene';
 import { SCENE_KEYS } from './scenes/navigation';
 import { ko } from './i18n/ko';
@@ -26,6 +27,7 @@ const config: Phaser.Types.Core.GameConfig = {
     TitleScene,
     HideoutScene,
     MapScene,
+    NightScene,
     new PlaceholderScene(SCENE_KEYS.crew, ko.crew.title),
     new PlaceholderScene(SCENE_KEYS.report, ko.report.title),
     new PlaceholderScene(SCENE_KEYS.settings, ko.settings.title),

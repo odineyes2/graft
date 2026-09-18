@@ -4,6 +4,50 @@
 
 ---
 
+## 2026-09-19 — T-33 밤 실행 연출 + 이벤트 카드
+
+### "이벤트 트리거 조립" 로직을 tools/simulateRun.ts에서 core로 승격했다
+
+T-17 DECISIONS.md가 이미 "실제 배선은 T-33 이벤트 모달이나 T-20 시뮬레이터가
+담당한다"고 남겨 뒀는데, 정작 T-20(`tools/simulateRun.ts`)이 그 배선(어떤
+카테고리를 어떤 조직원 기준으로 트리거할지)을 먼저 구현해 두고 있었다.
+NightScene도 똑같은 규칙으로 이벤트를 뽑아야 결과가 재현 가능한데, 그대로
+복붙하면 두 구현이 갈라질 위험이 있어 `src/core/systems/nightEvents.ts`
+(`triggerNightEvents`)로 승격하고 `tools/simulateRun.ts`는 그 함수를 쓰도록
+리팩터링했다. 선택지를 실제로 고르는 부분(봇 정책 vs 플레이어 클릭)은
+호출자 책임으로 그대로 남겼다.
+
+### NightScene은 advanceNight() 결과를 한 번에 재생한다 (이벤트 선택도 되돌릴 수 없다)
+
+FR-TURN-02는 "실행 단계는 자동 진행하되 이벤트 발생 시 멈춘다"고만 요구한다.
+`advanceNight()`(T-13~T-19 조립)와 `triggerNightEvents()`는 이미 순수 함수라
+전체를 한 번에 계산한 뒤, 그 결과(행동별 결과 → 경쟁 갱 동향 → 이벤트 카드
+순서)를 순차 재생하는 방식을 택했다. 이벤트 카드에서 선택지를 고르는
+중간에 이전 화면으로 되돌아갈 방법은 만들지 않았다 — 이미 확정된 RNG
+결과를 되돌리는 것 자체가 결정론(NFR-02)과 맞지 않는다. NightScene은
+ESC 핸들러를 두지 않고, 끝나면 `navigateReplace()`로 히스토리를 비우고
+결산(T-34는 아직 placeholder)으로 넘어간다 — Report 화면에서 실수로 ESC를
+눌러도 되돌아갈 곳이 Night이 되어 밤이 중복 진행되는 일이 없게 했다.
+
+### 체인 이벤트(chainEventId)는 pendingEventIds를 직접 드레인해서 따라간다
+
+`triggerNightEvents()`가 고른 이벤트 목록(`triggered`)은 선택지 적용
+전에 정해지므로, `applyEventChoice()`가 선택 적용 중에 `chainEventId`를
+`pendingEventIds`에 새로 밀어 넣어도 그 목록에는 없다. NightScene은 로컬
+큐가 비면 `state.pendingEventIds`에서 아직 안 보여준 ID를 찾아
+`content.events`에서 정의를 가져와 이어서 보여준다. MVP 이벤트 데이터에는
+체인이 없어 당장 발동하진 않지만, FR-EVT-04 대비 코드는 미리 맞춰 뒀다.
+
+### 이벤트 카드 문구는 i18n 점(.) 경로 문자열이라 범용 해석기(t())가 필요했다
+
+`EventCardDef.textKey`/`choiceKey`는 `"events.evt_x.text"` 같은 ko.ts
+경로 문자열이다(T-12 결정). 지금까지 화면들은 `ko.맵.무엇` 식으로 고정
+경로를 직접 참조해 왔지만, 이벤트 카드는 어떤 이벤트가 뜰지 런타임에
+정해지므로 고정 참조가 불가능하다. `src/i18n/resolve.ts`의 `t(key)`를
+새로 만들어 점 경로를 런타임에 해석한다.
+
+---
+
 ## 2026-09-18 — T-31 단말기 UI 프레임 범위
 
 ### 스캔라인은 화려한 필터가 아니라 반복 타일 텍스처로 구현했다

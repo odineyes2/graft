@@ -11,6 +11,7 @@ export const SCENE_KEYS = {
   title: 'Title',
   hideout: 'Hideout',
   map: 'Map',
+  night: 'Night',
   crew: 'Crew',
   report: 'Report',
   settings: 'Settings',

@@ -2,62 +2,29 @@
  * tools/simulateRun.ts
  *
  * 봇 하나가 시드 하나로 런 하나를 끝까지 진행한다. advanceNight(T-20 핵심
- * 조립 함수)가 밤 사이클의 결정적인 부분을 처리하고, 여기서는 그 결과로
- * 나온 "이벤트를 띄워야 하는지" 신호를 받아 실제로 이벤트를 골라 적용하는
- * 봇 전용 로직만 담당한다.
+ * 조립 함수)가 밤 사이클의 결정적인 부분을 처리하고, core의
+ * triggerNightEvents(T-33)가 어떤 이벤트가 뜨는지까지 정한다. 여기서는 그
+ * 결과로 나온 이벤트에 어떤 선택지를 고를지 결정하는 봇 전용 로직만 담당한다.
  */
 
 import { content } from '../src/core/content/load';
-import type { EventCardDef } from '../src/core/content/types';
 import { createInitialRunState } from '../src/core/initialState';
 import { createRng } from '../src/core/rng';
 import { advanceNight } from '../src/core/systems/advanceNight';
-import type { CrewRiskAssessment } from '../src/core/systems/crewRisk';
-import { applyEventChoice, triggerEvent } from '../src/core/systems/events';
-import type { HeatResolution } from '../src/core/systems/heat';
+import { applyEventChoice } from '../src/core/systems/events';
+import { triggerNightEvents } from '../src/core/systems/nightEvents';
+import type { TriggeredNightEvent } from '../src/core/systems/nightEvents';
 import { buildRunEndSummary } from '../src/core/systems/runEnd';
 import type { RunEndSummary } from '../src/core/systems/runEnd';
-import type { CrewId, RunState } from '../src/core/types';
+import type { RunState } from '../src/core/types';
 import { decideAssignments, pickEventChoice, tryBuildBusiness } from './bots';
 import type { BotConfig } from './bots';
 
-interface TriggeredEvent {
-  readonly event: EventCardDef;
-  readonly actingCrewId?: CrewId;
-}
-
-function resolveNightEvents(
+function applyNightEventChoices(
   state: RunState,
-  heatResolution: HeatResolution,
-  crewRisks: ReadonlyArray<CrewRiskAssessment>,
-  rng: ReturnType<typeof createRng>,
+  triggered: ReadonlyArray<TriggeredNightEvent>,
 ): RunState {
   let current = state;
-  const triggered: TriggeredEvent[] = [];
-
-  if (heatResolution.eventTriggerDue) {
-    const category = heatResolution.band === 'police' ? 'crackdown' : 'raid';
-    const result = triggerEvent(current, rng, content, category);
-    current = result.state;
-    if (result.event) {
-      const activeCrew = current.crew.filter((c) => c.status !== 'dead');
-      const actingCrewId = activeCrew.length > 0 ? rng.pick(activeCrew.map((c) => c.id)) : undefined;
-      triggered.push({ event: result.event, actingCrewId });
-    }
-  }
-
-  for (const risk of crewRisks) {
-    if (risk.cyberpsychosisRiskDue) {
-      const result = triggerEvent(current, rng, content, 'cyberpsychosis');
-      current = result.state;
-      if (result.event) triggered.push({ event: result.event, actingCrewId: risk.crewId });
-    }
-    if (risk.loyaltyRiskDue) {
-      const result = triggerEvent(current, rng, content, ['betrayal', 'desertion']);
-      current = result.state;
-      if (result.event) triggered.push({ event: result.event, actingCrewId: risk.crewId });
-    }
-  }
 
   for (const { event, actingCrewId } of triggered) {
     const choiceKey = pickEventChoice(event, actingCrewId !== undefined);
@@ -96,7 +63,14 @@ export function simulateOneRun(seed: string, bot: BotConfig): RunStats {
     const heatBeforeDecay = state.heat - result.heatResolution.decayApplied;
     peakHeat = Math.max(peakHeat, heatBeforeDecay);
 
-    state = resolveNightEvents(state, result.heatResolution, result.crewRisks, rng);
+    const { state: triggeredState, triggered } = triggerNightEvents(
+      state,
+      result.heatResolution,
+      result.crewRisks,
+      rng,
+      content,
+    );
+    state = applyNightEventChoices(triggeredState, triggered);
 
     if (!state.ended) {
       state = tryBuildBusiness(state, bot, content);

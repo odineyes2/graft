@@ -3,7 +3,8 @@
  *
  * 도시 지도 + 배치 (FR-UI-03, FR-MAP-02~04, FR-HEAT-02).
  * 3개 층에 6구역을 표시하고, 조직원을 클릭 한 번(구역 선택 → 행동 버튼)으로
- * 행동 슬롯에 배치·해제한다. "밤 시작" 버튼이 T-13 resolveNight를 호출한다.
+ * 행동 슬롯에 배치·해제한다. "밤 시작" 버튼은 NightScene(T-33)으로 넘어가
+ * 실제 밤 해결(T-13 resolveNight부터 이어지는 advanceNight)을 재생한다.
  *
  * T-32 산출물.
  */
@@ -12,13 +13,11 @@ import { content } from '../core/content/load';
 import { getHeatBand } from '../core/systems/heat';
 import type { HeatBand } from '../core/systems/heat';
 import { estimateNightHeatIncrease } from '../core/systems/estimateHeat';
-import { resolveNight } from '../core/systems/resolveNight';
 import type {
   ActionKind,
   Assignment,
   CrewId,
   CrewMember,
-  CrewStatus,
   District,
   DistrictId,
   DistrictOwner,
@@ -32,8 +31,9 @@ import { createButton } from '../ui/button';
 import { createGauge } from '../ui/gauge';
 import { createPanel } from '../ui/panel';
 import { ko } from '../i18n/ko';
+import { crewName, crewStatusLabel, districtName } from '../i18n/lookup';
 import { navigateBack, navigateTo, SCENE_KEYS } from './navigation';
-import { getRunState, getRunRng, hasActiveRun, persistRun, setRunState } from './runStateStore';
+import { getRunState, hasActiveRun, setRunState } from './runStateStore';
 
 const HEAT_BAND_COLOR: Record<HeatBand, PaletteToken> = {
   quiet: 'heatLow',
@@ -63,23 +63,6 @@ function tierLabel(tier: (typeof TIER_ORDER)[number]): string {
   if (tier === 'upper') return ko.map.tierUpper;
   if (tier === 'mid') return ko.map.tierMid;
   return ko.map.tierLower;
-}
-
-function crewDisplayName(crewIdValue: CrewId): string {
-  const entry = ko.crew[crewIdValue as unknown as keyof typeof ko.crew] as { name?: string } | undefined;
-  return entry?.name ?? String(crewIdValue);
-}
-
-function districtDisplayName(id: DistrictId): string {
-  const entry = ko.districts[id as unknown as keyof typeof ko.districts] as { name?: string } | undefined;
-  return entry?.name ?? String(id);
-}
-
-function statusLabel(status: CrewStatus): string {
-  if (status === 'injured') return ko.map.statusInjured;
-  if (status === 'arrested') return ko.map.statusArrested;
-  if (status === 'dead') return ko.map.statusDead;
-  return '';
 }
 
 export class MapScene extends TerminalScene {
@@ -211,7 +194,7 @@ export class MapScene extends TerminalScene {
 
     this.track(
       this.add
-        .text(x + DISTRICT_BOX_WIDTH / 2, y + 3, districtDisplayName(district.id), {
+        .text(x + DISTRICT_BOX_WIDTH / 2, y + 3, districtName(district.id), {
           fontFamily: FONT_FAMILY,
           fontSize: '8px',
           color: palette.textPrimary,
@@ -251,10 +234,10 @@ export class MapScene extends TerminalScene {
     const nameStyle = { fontFamily: FONT_FAMILY, fontSize: '8px', color: palette.textPrimary };
     const mutedStyle = { fontFamily: FONT_FAMILY, fontSize: '8px', color: palette.textMuted };
 
-    this.track(this.add.text(10, y, crewDisplayName(crew.id), nameStyle));
+    this.track(this.add.text(10, y, crewName(crew.id), nameStyle));
 
     if (crew.status !== 'active') {
-      this.track(this.add.text(70, y, statusLabel(crew.status), mutedStyle));
+      this.track(this.add.text(70, y, crewStatusLabel(crew.status), mutedStyle));
       return;
     }
 
@@ -295,7 +278,7 @@ export class MapScene extends TerminalScene {
 
   private describeAssignment(assignment: Assignment): string {
     if (assignment.action === 'rest') return ko.map.actionRest;
-    const targetName = assignment.targetDistrictId ? districtDisplayName(assignment.targetDistrictId) : '';
+    const targetName = assignment.targetDistrictId ? districtName(assignment.targetDistrictId) : '';
     const actionLabel =
       assignment.action === 'attack'
         ? ko.map.actionAttack
@@ -369,7 +352,7 @@ export class MapScene extends TerminalScene {
     this.render();
   }
 
-  // ── 밤 시작 (T-13 resolveNight 호출) ──
+  // ── 밤 시작 (NightScene으로 넘어가 T-13 resolveNight부터 이어지는 밤 사이클을 재생한다) ──
 
   private renderStartNightButton(): void {
     this.track(
@@ -380,12 +363,7 @@ export class MapScene extends TerminalScene {
   }
 
   private startNight(): void {
-    const state = getRunState();
-    const rng = getRunRng();
-    const { state: newState } = resolveNight(state, state.currentAssignments, rng);
-    setRunState(newState);
-    persistRun();
     this.selectedDistrictId = null;
-    navigateTo(this, SCENE_KEYS.report);
+    navigateTo(this, SCENE_KEYS.night);
   }
 }
