@@ -1,0 +1,16 @@
+[
+  {
+    "id": "gang_a",
+    "nameKey": "rivals.gang_a.name",
+    "personality": "expansionist",
+    "startingDistrictId": "underground_market",
+    "startingCredits": 400
+  },
+  {
+    "id": "gang_b",
+    "nameKey": "rivals.gang_b.name",
+    "personality": "aggressive",
+    "startingDistrictId": "nightclub_row",
+    "startingCredits": 350
+  }
+]

@@ -1,0 +1,180 @@
+{
+  "startingBoss": {
+    "id": "boss",
+    "nameKey": "crew.boss.name",
+    "portraitKey": "portrait_boss",
+    "baseStats": { "force": 6, "tech": 5, "negotiation": 5, "stealth": 4 },
+    "humanity": 80,
+    "loyalty": 100,
+    "traitIds": ["leader"],
+    "wagePerNight": 0
+  },
+  "startingCrew": [
+    {
+      "id": "crew_01",
+      "nameKey": "crew.crew_01.name",
+      "portraitKey": "portrait_crew_01",
+      "baseStats": { "force": 7, "tech": 3, "negotiation": 4, "stealth": 5 },
+      "humanity": 75,
+      "loyalty": 65,
+      "traitIds": ["street_fighter"],
+      "wagePerNight": 50
+    },
+    {
+      "id": "crew_02",
+      "nameKey": "crew.crew_02.name",
+      "portraitKey": "portrait_crew_02",
+      "baseStats": { "force": 3, "tech": 8, "negotiation": 4, "stealth": 6 },
+      "humanity": 70,
+      "loyalty": 60,
+      "traitIds": ["hacker"],
+      "wagePerNight": 60
+    }
+  ],
+  "recruitPool": [
+    {
+      "id": "crew_r01",
+      "nameKey": "crew.crew_r01.name",
+      "portraitKey": "portrait_crew_r01",
+      "baseStats": { "force": 2, "tech": 8, "negotiation": 3, "stealth": 5 },
+      "humanity": 72,
+      "loyalty": 50,
+      "traitIds": ["hacker"],
+      "wagePerNight": 55,
+      "recruitCost": 300,
+      "minReputation": 0
+    },
+    {
+      "id": "crew_r02",
+      "nameKey": "crew.crew_r02.name",
+      "portraitKey": "portrait_crew_r02",
+      "baseStats": { "force": 9, "tech": 2, "negotiation": 2, "stealth": 3 },
+      "humanity": 78,
+      "loyalty": 50,
+      "traitIds": ["muscle"],
+      "wagePerNight": 60,
+      "recruitCost": 300,
+      "minReputation": 0
+    },
+    {
+      "id": "crew_r03",
+      "nameKey": "crew.crew_r03.name",
+      "portraitKey": "portrait_crew_r03",
+      "baseStats": { "force": 3, "tech": 4, "negotiation": 3, "stealth": 9 },
+      "humanity": 68,
+      "loyalty": 50,
+      "traitIds": ["ghost"],
+      "wagePerNight": 65,
+      "recruitCost": 400,
+      "minReputation": 10
+    },
+    {
+      "id": "crew_r04",
+      "nameKey": "crew.crew_r04.name",
+      "portraitKey": "portrait_crew_r04",
+      "baseStats": { "force": 2, "tech": 3, "negotiation": 9, "stealth": 3 },
+      "humanity": 80,
+      "loyalty": 50,
+      "traitIds": ["face"],
+      "wagePerNight": 65,
+      "recruitCost": 400,
+      "minReputation": 10
+    },
+    {
+      "id": "crew_r05",
+      "nameKey": "crew.crew_r05.name",
+      "portraitKey": "portrait_crew_r05",
+      "baseStats": { "force": 2, "tech": 7, "negotiation": 5, "stealth": 3 },
+      "humanity": 74,
+      "loyalty": 50,
+      "traitIds": ["medic"],
+      "wagePerNight": 70,
+      "recruitCost": 500,
+      "minReputation": 20
+    },
+    {
+      "id": "crew_r06",
+      "nameKey": "crew.crew_r06.name",
+      "portraitKey": "portrait_crew_r06",
+      "baseStats": { "force": 8, "tech": 2, "negotiation": 4, "stealth": 4 },
+      "humanity": 65,
+      "loyalty": 50,
+      "traitIds": ["enforcer"],
+      "wagePerNight": 70,
+      "recruitCost": 500,
+      "minReputation": 20
+    },
+    {
+      "id": "crew_r07",
+      "nameKey": "crew.crew_r07.name",
+      "portraitKey": "portrait_crew_r07",
+      "baseStats": { "force": 3, "tech": 5, "negotiation": 7, "stealth": 4 },
+      "humanity": 70,
+      "loyalty": 50,
+      "traitIds": ["fixer"],
+      "wagePerNight": 75,
+      "recruitCost": 600,
+      "minReputation": 30
+    },
+    {
+      "id": "crew_r08",
+      "nameKey": "crew.crew_r08.name",
+      "portraitKey": "portrait_crew_r08",
+      "baseStats": { "force": 2, "tech": 8, "negotiation": 3, "stealth": 6 },
+      "humanity": 60,
+      "loyalty": 50,
+      "traitIds": ["techie"],
+      "wagePerNight": 80,
+      "recruitCost": 700,
+      "minReputation": 30
+    },
+    {
+      "id": "crew_r09",
+      "nameKey": "crew.crew_r09.name",
+      "portraitKey": "portrait_crew_r09",
+      "baseStats": { "force": 5, "tech": 3, "negotiation": 3, "stealth": 8 },
+      "humanity": 62,
+      "loyalty": 50,
+      "traitIds": ["ghost"],
+      "wagePerNight": 80,
+      "recruitCost": 700,
+      "minReputation": 40
+    },
+    {
+      "id": "crew_r10",
+      "nameKey": "crew.crew_r10.name",
+      "portraitKey": "portrait_crew_r10",
+      "baseStats": { "force": 7, "tech": 6, "negotiation": 3, "stealth": 3 },
+      "humanity": 58,
+      "loyalty": 50,
+      "traitIds": ["enforcer", "techie"],
+      "wagePerNight": 85,
+      "recruitCost": 800,
+      "minReputation": 40
+    },
+    {
+      "id": "crew_r11",
+      "nameKey": "crew.crew_r11.name",
+      "portraitKey": "portrait_crew_r11",
+      "baseStats": { "force": 6, "tech": 6, "negotiation": 6, "stealth": 6 },
+      "humanity": 75,
+      "loyalty": 50,
+      "traitIds": ["veteran"],
+      "wagePerNight": 95,
+      "recruitCost": 1000,
+      "minReputation": 50
+    },
+    {
+      "id": "crew_r12",
+      "nameKey": "crew.crew_r12.name",
+      "portraitKey": "portrait_crew_r12",
+      "baseStats": { "force": 3, "tech": 3, "negotiation": 7, "stealth": 9 },
+      "humanity": 55,
+      "loyalty": 50,
+      "traitIds": ["ghost", "face"],
+      "wagePerNight": 100,
+      "recruitCost": 1200,
+      "minReputation": 50
+    }
+  ]
+}

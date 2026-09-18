@@ -1,0 +1,17 @@
+{
+  "startingCredits": 500,
+  "startingHeat": 5,
+  "startingReputation": 20,
+  "maxNights": 30,
+  "consecutiveDebtNightsLimit": 3,
+  "heatThresholds": {
+    "quietDecayBelow": 40,
+    "policeEventMin": 40,
+    "raidEventMin": 70,
+    "lockdownAt": 100
+  },
+  "legacyBonusEffects": {
+    "start_credits": { "creditsDelta": 300 },
+    "start_less_heat": { "heatDelta": -5 }
+  }
+}

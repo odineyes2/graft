@@ -4,6 +4,41 @@
 
 ---
 
+## 2026-09-18 — T-12 콘텐츠 데이터 구조 결정
+
+### 콘텐츠 정의 타입은 런타임 상태 타입과 분리한다
+
+`src/core/types.ts`는 런 진행 중 바뀌는 상태(District.owner, CrewMember.humanity 등)를
+표현한다. 반면 `src/data/*.json`은 런과 무관하게 고정된 카탈로그(구역 이름, 사업
+배율, 이벤트 본문 등)다. 이 둘을 같은 인터페이스로 억지로 합치면 안 맞는 지점이
+생긴다: 예를 들어 `EventChoiceEffect.crewEffects`는 구체적인 `CrewId`를 요구하는데,
+이벤트 데이터는 그 이벤트가 어떤 조직원에게 적용될지 데이터 시점에 알 수 없다
+(런타임에 배치된 조직원 중 하나가 정해진다).
+
+그래서 `src/core/content/types.ts`에 데이터 전용 타입(`DistrictDef`, `BusinessDef`,
+`CrewDef`, `CyberwareDef`, `RivalDef`, `EventCardDef`, `LegacyBonusDef`,
+`BalanceConfig`)을 별도로 정의했다. `EventCardDef`의 선택지 효과는 `crewEffects`
+대신 `actingCrewEffect`(이 이벤트를 유발/처리한 조직원에게 적용될 효과, 구체적
+ID 없이)를 쓴다. 밤 해결 엔진(T-13)과 이벤트 시스템(T-17)이 실행 시점에 대상
+조직원을 정해 `actingCrewEffect`를 런타임 `EventChoiceEffect.crewEffects`로
+변환하는 책임을 진다.
+
+### 영입 풀과 시작 조직원은 분리된 구조로 저장한다
+
+REQUIREMENTS 6장은 "영입 가능 조직원 12 이상"을 요구하고, FR-CREW-02는 "런 시작 시
+보스 1명 + 조직원 2명"을 요구한다. 시작 조직원이 영입 풀에 포함되는지 명세가
+명시하지 않아서, `crew.json`을 `{ startingBoss, startingCrew: [2명], recruitPool:
+[12명 이상] }` 구조로 분리해 두 수량 요구사항이 서로 겹치지 않고 각각 명확히
+검증되게 했다.
+
+### 유산 보너스 "시작 조직원 추가"는 영입 풀 1번 인물을 무료로 합류시킨다
+
+FR-LEG-02의 "시작 조직원 추가" 보너스가 구체적으로 누구를 추가하는지 명세에
+없어서, `recruitPool[0]`을 영입 비용 없이 합류시키는 것으로 잠정 구현했다.
+추후 유산 화면(T-41)에서 플레이어가 직접 고르게 할 수도 있어 재검토 대상이다.
+
+---
+
 ## 2026-09-16 — T-02 폰트·정적 에셋 서빙 경로
 
 ### 한글 픽셀 폰트: Galmuri

@@ -1,0 +1,46 @@
+[
+  {
+    "kind": "protection",
+    "nameKey": "businesses.protection.name",
+    "descriptionKey": "businesses.protection.description",
+    "requiredStat": "force",
+    "incomePerLevel": [40, 70, 110],
+    "heatPerLevel": [4, 6, 9],
+    "buildCost": 200,
+    "upgradeCost": [150, 300],
+    "specialEffect": "reputation_scaled_income"
+  },
+  {
+    "kind": "clinic",
+    "nameKey": "businesses.clinic.name",
+    "descriptionKey": "businesses.clinic.description",
+    "requiredStat": "tech",
+    "incomePerLevel": [60, 100, 150],
+    "heatPerLevel": [6, 9, 13],
+    "buildCost": 350,
+    "upgradeCost": [250, 450],
+    "specialEffect": "cyberware_discount"
+  },
+  {
+    "kind": "arena",
+    "nameKey": "businesses.arena.name",
+    "descriptionKey": "businesses.arena.description",
+    "requiredStat": "force",
+    "incomePerLevel": [60, 100, 150],
+    "heatPerLevel": [6, 9, 13],
+    "buildCost": 350,
+    "upgradeCost": [250, 450],
+    "specialEffect": "reputation_gain"
+  },
+  {
+    "kind": "datatrafficking",
+    "nameKey": "businesses.datatrafficking.name",
+    "descriptionKey": "businesses.datatrafficking.description",
+    "requiredStat": "tech",
+    "incomePerLevel": [90, 150, 220],
+    "heatPerLevel": [10, 15, 22],
+    "buildCost": 500,
+    "upgradeCost": [350, 600],
+    "specialEffect": "requires_hacker"
+  }
+]

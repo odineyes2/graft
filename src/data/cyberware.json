@@ -1,0 +1,50 @@
+[
+  {
+    "id": "cyber_arm",
+    "nameKey": "cyberware.cyber_arm.name",
+    "descriptionKey": "cyberware.cyber_arm.description",
+    "statBonus": { "force": 2 },
+    "humanityCost": 10,
+    "creditCost": 300
+  },
+  {
+    "id": "neural_processor",
+    "nameKey": "cyberware.neural_processor.name",
+    "descriptionKey": "cyberware.neural_processor.description",
+    "statBonus": { "tech": 2 },
+    "humanityCost": 10,
+    "creditCost": 300
+  },
+  {
+    "id": "vocal_modulator",
+    "nameKey": "cyberware.vocal_modulator.name",
+    "descriptionKey": "cyberware.vocal_modulator.description",
+    "statBonus": { "negotiation": 2 },
+    "humanityCost": 8,
+    "creditCost": 250
+  },
+  {
+    "id": "optic_camo",
+    "nameKey": "cyberware.optic_camo.name",
+    "descriptionKey": "cyberware.optic_camo.description",
+    "statBonus": { "stealth": 2 },
+    "humanityCost": 8,
+    "creditCost": 250
+  },
+  {
+    "id": "reflex_booster",
+    "nameKey": "cyberware.reflex_booster.name",
+    "descriptionKey": "cyberware.reflex_booster.description",
+    "statBonus": { "force": 1, "stealth": 1 },
+    "humanityCost": 12,
+    "creditCost": 400
+  },
+  {
+    "id": "wetware_suite",
+    "nameKey": "cyberware.wetware_suite.name",
+    "descriptionKey": "cyberware.wetware_suite.description",
+    "statBonus": { "tech": 1, "negotiation": 1, "stealth": 1, "force": 1 },
+    "humanityCost": 25,
+    "creditCost": 900
+  }
+]

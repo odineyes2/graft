@@ -1,0 +1,405 @@
+[
+  {
+    "id": "evt_crackdown_bribe_check",
+    "category": "crackdown",
+    "portraitKey": "portrait_cop",
+    "textKey": "events.evt_crackdown_bribe_check.text",
+    "condition": { "heatRange": [40, 69] },
+    "weight": 12,
+    "choices": [
+      {
+        "choiceKey": "events.evt_crackdown_bribe_check.choice_bribe",
+        "effect": { "creditDelta": -150, "heatDelta": -10 }
+      },
+      {
+        "choiceKey": "events.evt_crackdown_bribe_check.choice_refuse",
+        "effect": { "heatDelta": 5, "actingCrewEffect": { "statusChange": "arrested" } }
+      }
+    ]
+  },
+  {
+    "id": "evt_crackdown_patrol_sweep",
+    "category": "crackdown",
+    "portraitKey": "portrait_cop",
+    "textKey": "events.evt_crackdown_patrol_sweep.text",
+    "condition": { "heatRange": [40, 69] },
+    "weight": 12,
+    "choices": [
+      {
+        "choiceKey": "events.evt_crackdown_patrol_sweep.choice_lay_low",
+        "effect": { "heatDelta": -8 }
+      },
+      {
+        "choiceKey": "events.evt_crackdown_patrol_sweep.choice_ignore",
+        "effect": { "heatDelta": 8 }
+      }
+    ]
+  },
+  {
+    "id": "evt_crackdown_informant",
+    "category": "crackdown",
+    "portraitKey": "portrait_cop",
+    "textKey": "events.evt_crackdown_informant.text",
+    "condition": { "heatRange": [40, 100] },
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_crackdown_informant.choice_pay",
+        "effect": { "creditDelta": -100, "heatDelta": -6 }
+      },
+      {
+        "choiceKey": "events.evt_crackdown_informant.choice_silence",
+        "effect": { "reputationDelta": -5, "heatDelta": 4 }
+      }
+    ]
+  },
+  {
+    "id": "evt_crackdown_fine",
+    "category": "crackdown",
+    "portraitKey": "portrait_cop",
+    "textKey": "events.evt_crackdown_fine.text",
+    "condition": { "heatRange": [40, 69] },
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_crackdown_fine.choice_pay_fine",
+        "effect": { "creditDelta": -80 }
+      },
+      {
+        "choiceKey": "events.evt_crackdown_fine.choice_dodge",
+        "effect": { "heatDelta": 6, "actingCrewEffect": { "statusChange": "injured" } }
+      }
+    ]
+  },
+  {
+    "id": "evt_raid_warehouse",
+    "category": "raid",
+    "portraitKey": "portrait_swat",
+    "textKey": "events.evt_raid_warehouse.text",
+    "condition": { "heatRange": [70, 100] },
+    "weight": 12,
+    "choices": [
+      {
+        "choiceKey": "events.evt_raid_warehouse.choice_fight",
+        "effect": { "heatDelta": -15, "actingCrewEffect": { "statusChange": "injured" } }
+      },
+      {
+        "choiceKey": "events.evt_raid_warehouse.choice_flee",
+        "effect": { "creditDelta": -200, "heatDelta": -5 }
+      }
+    ]
+  },
+  {
+    "id": "evt_raid_corp_strike",
+    "category": "raid",
+    "portraitKey": "portrait_swat",
+    "textKey": "events.evt_raid_corp_strike.text",
+    "condition": { "heatRange": [70, 100], "minDistrictsOwned": 3 },
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_raid_corp_strike.choice_defend",
+        "effect": { "heatDelta": -12, "actingCrewEffect": { "statusChange": "injured" } }
+      },
+      {
+        "choiceKey": "events.evt_raid_corp_strike.choice_bribe_officer",
+        "effect": { "creditDelta": -300, "heatDelta": -20 }
+      }
+    ]
+  },
+  {
+    "id": "evt_raid_corporate_zone",
+    "category": "raid",
+    "portraitKey": "portrait_swat",
+    "textKey": "events.evt_raid_corporate_zone.text",
+    "condition": { "heatRange": [70, 100], "requiresDistrict": "corporate_zone" },
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_raid_corporate_zone.choice_lockdown",
+        "effect": { "heatDelta": -18 }
+      },
+      {
+        "choiceKey": "events.evt_raid_corporate_zone.choice_negotiate",
+        "effect": { "creditDelta": -250, "reputationDelta": -5 }
+      }
+    ]
+  },
+  {
+    "id": "evt_cyberpsychosis_rampage",
+    "category": "cyberpsychosis",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_cyberpsychosis_rampage.text",
+    "condition": {},
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_cyberpsychosis_rampage.choice_restrain",
+        "effect": {
+          "heatDelta": 10,
+          "actingCrewEffect": { "humanityDelta": 5, "statusChange": "injured" }
+        }
+      },
+      {
+        "choiceKey": "events.evt_cyberpsychosis_rampage.choice_let_loose",
+        "effect": { "heatDelta": 20, "reputationDelta": -10 }
+      }
+    ]
+  },
+  {
+    "id": "evt_cyberpsychosis_flashback",
+    "category": "cyberpsychosis",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_cyberpsychosis_flashback.text",
+    "condition": {},
+    "weight": 9,
+    "choices": [
+      {
+        "choiceKey": "events.evt_cyberpsychosis_flashback.choice_therapy",
+        "effect": { "creditDelta": -120, "actingCrewEffect": { "humanityDelta": 8 } }
+      },
+      {
+        "choiceKey": "events.evt_cyberpsychosis_flashback.choice_ignore",
+        "effect": { "actingCrewEffect": { "loyaltyDelta": -10 } }
+      }
+    ]
+  },
+  {
+    "id": "evt_betrayal_leak",
+    "category": "betrayal",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_betrayal_leak.text",
+    "condition": {},
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_betrayal_leak.choice_confront",
+        "effect": { "actingCrewEffect": { "loyaltyDelta": -20, "statusChange": "dead" } }
+      },
+      {
+        "choiceKey": "events.evt_betrayal_leak.choice_buy_silence",
+        "effect": { "creditDelta": -300, "actingCrewEffect": { "loyaltyDelta": 10 } }
+      }
+    ]
+  },
+  {
+    "id": "evt_betrayal_rival_offer",
+    "category": "betrayal",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_betrayal_rival_offer.text",
+    "condition": {},
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_betrayal_rival_offer.choice_expose",
+        "effect": { "reputationDelta": 5, "actingCrewEffect": { "loyaltyDelta": -15 } }
+      },
+      {
+        "choiceKey": "events.evt_betrayal_rival_offer.choice_let_it_slide",
+        "effect": { "heatDelta": 8 }
+      }
+    ]
+  },
+  {
+    "id": "evt_desertion_threat",
+    "category": "desertion",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_desertion_threat.text",
+    "condition": {},
+    "weight": 9,
+    "choices": [
+      {
+        "choiceKey": "events.evt_desertion_threat.choice_raise_wage",
+        "effect": { "creditDelta": -100, "actingCrewEffect": { "loyaltyDelta": 15 } }
+      },
+      {
+        "choiceKey": "events.evt_desertion_threat.choice_let_go",
+        "effect": { "actingCrewEffect": { "statusChange": "dead" } }
+      }
+    ]
+  },
+  {
+    "id": "evt_desertion_family",
+    "category": "desertion",
+    "portraitKey": "portrait_crew_generic",
+    "textKey": "events.evt_desertion_family.text",
+    "condition": {},
+    "weight": 7,
+    "choices": [
+      {
+        "choiceKey": "events.evt_desertion_family.choice_grant_leave",
+        "effect": { "actingCrewEffect": { "loyaltyDelta": 20 } }
+      },
+      {
+        "choiceKey": "events.evt_desertion_family.choice_refuse_leave",
+        "effect": { "actingCrewEffect": { "loyaltyDelta": -25 } }
+      }
+    ]
+  },
+  {
+    "id": "evt_recruit_offer_street",
+    "category": "recruit_offer",
+    "portraitKey": "portrait_stranger",
+    "textKey": "events.evt_recruit_offer_street.text",
+    "condition": {},
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_recruit_offer_street.choice_accept",
+        "effect": { "creditDelta": -150 }
+      },
+      {
+        "choiceKey": "events.evt_recruit_offer_street.choice_decline",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_recruit_offer_specialist",
+    "category": "recruit_offer",
+    "portraitKey": "portrait_stranger",
+    "textKey": "events.evt_recruit_offer_specialist.text",
+    "condition": { "minDistrictsOwned": 2 },
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_recruit_offer_specialist.choice_accept",
+        "effect": { "creditDelta": -400 }
+      },
+      {
+        "choiceKey": "events.evt_recruit_offer_specialist.choice_decline",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_recruit_offer_defector",
+    "category": "recruit_offer",
+    "portraitKey": "portrait_stranger",
+    "textKey": "events.evt_recruit_offer_defector.text",
+    "condition": {},
+    "weight": 6,
+    "choices": [
+      {
+        "choiceKey": "events.evt_recruit_offer_defector.choice_accept",
+        "effect": { "creditDelta": -250, "heatDelta": 10 }
+      },
+      {
+        "choiceKey": "events.evt_recruit_offer_defector.choice_decline",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_deal_offer_arms",
+    "category": "deal_offer",
+    "portraitKey": "portrait_fixer",
+    "textKey": "events.evt_deal_offer_arms.text",
+    "condition": {},
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_deal_offer_arms.choice_invest",
+        "effect": { "creditDelta": -200, "reputationDelta": 5 }
+      },
+      {
+        "choiceKey": "events.evt_deal_offer_arms.choice_pass",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_deal_offer_data",
+    "category": "deal_offer",
+    "portraitKey": "portrait_fixer",
+    "textKey": "events.evt_deal_offer_data.text",
+    "condition": {},
+    "weight": 9,
+    "choices": [
+      {
+        "choiceKey": "events.evt_deal_offer_data.choice_accept",
+        "effect": { "creditDelta": 250, "heatDelta": 12 }
+      },
+      {
+        "choiceKey": "events.evt_deal_offer_data.choice_refuse",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_deal_offer_territory",
+    "category": "deal_offer",
+    "portraitKey": "portrait_fixer",
+    "textKey": "events.evt_deal_offer_territory.text",
+    "condition": { "minDistrictsOwned": 1 },
+    "weight": 7,
+    "choices": [
+      {
+        "choiceKey": "events.evt_deal_offer_territory.choice_accept",
+        "effect": { "creditDelta": -350, "reputationDelta": 8 }
+      },
+      {
+        "choiceKey": "events.evt_deal_offer_territory.choice_refuse",
+        "effect": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_bribe_demand_cop",
+    "category": "bribe_demand",
+    "portraitKey": "portrait_cop",
+    "textKey": "events.evt_bribe_demand_cop.text",
+    "condition": { "heatRange": [40, 100] },
+    "weight": 10,
+    "choices": [
+      {
+        "choiceKey": "events.evt_bribe_demand_cop.choice_pay",
+        "effect": { "creditDelta": -120, "heatDelta": -8 }
+      },
+      {
+        "choiceKey": "events.evt_bribe_demand_cop.choice_refuse",
+        "effect": { "heatDelta": 12 }
+      }
+    ]
+  },
+  {
+    "id": "evt_bribe_demand_official",
+    "category": "bribe_demand",
+    "portraitKey": "portrait_official",
+    "textKey": "events.evt_bribe_demand_official.text",
+    "condition": { "heatRange": [40, 100] },
+    "weight": 8,
+    "choices": [
+      {
+        "choiceKey": "events.evt_bribe_demand_official.choice_pay",
+        "effect": { "creditDelta": -200, "heatDelta": -10 }
+      },
+      {
+        "choiceKey": "events.evt_bribe_demand_official.choice_refuse",
+        "effect": { "reputationDelta": -8 }
+      }
+    ]
+  },
+  {
+    "id": "evt_bribe_demand_rival_lieutenant",
+    "category": "bribe_demand",
+    "portraitKey": "portrait_fixer",
+    "textKey": "events.evt_bribe_demand_rival_lieutenant.text",
+    "condition": {},
+    "weight": 6,
+    "choices": [
+      {
+        "choiceKey": "events.evt_bribe_demand_rival_lieutenant.choice_pay",
+        "effect": { "creditDelta": -150 }
+      },
+      {
+        "choiceKey": "events.evt_bribe_demand_rival_lieutenant.choice_refuse",
+        "effect": { "heatDelta": 6 }
+      },
+      {
+        "choiceKey": "events.evt_bribe_demand_rival_lieutenant.choice_ambush",
+        "effect": { "heatDelta": 15, "reputationDelta": 10 }
+      }
+    ]
+  }
+]

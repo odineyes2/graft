@@ -1,0 +1,32 @@
+[
+  {
+    "kind": "start_credits",
+    "nameKey": "legacy.start_credits.name",
+    "descriptionKey": "legacy.start_credits.description",
+    "unlockCost": 3
+  },
+  {
+    "kind": "start_extra_crew",
+    "nameKey": "legacy.start_extra_crew.name",
+    "descriptionKey": "legacy.start_extra_crew.description",
+    "unlockCost": 5
+  },
+  {
+    "kind": "start_less_heat",
+    "nameKey": "legacy.start_less_heat.name",
+    "descriptionKey": "legacy.start_less_heat.description",
+    "unlockCost": 3
+  },
+  {
+    "kind": "start_prebuild",
+    "nameKey": "legacy.start_prebuild.name",
+    "descriptionKey": "legacy.start_prebuild.description",
+    "unlockCost": 4
+  },
+  {
+    "kind": "start_special_crew",
+    "nameKey": "legacy.start_special_crew.name",
+    "descriptionKey": "legacy.start_special_crew.description",
+    "unlockCost": 6
+  }
+]

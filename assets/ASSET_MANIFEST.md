@@ -31,7 +31,18 @@
 ## 향후 필요한 실제 아트 (제작 필요, 미착수)
 
 M2 화면 작업(T-30~T-36)이 진행되며 구체화되는 대로 아래에 키·크기·용도를 추가한다.
+T-12에서 `src/data/crew.json`·`src/data/events.json`에 아래 `portraitKey`들이 먼저
+확정됐다. 실제 그림이 없는 동안은 `placeholder-portrait`(64×64 실루엣)로 대체한다.
 
 | 키 | 크기 | 용도 | 상태 | 비고 |
 |---|---|---|---|---|
-| (아직 없음) | | | | M2 진행 시 채운다 |
+| `portrait_boss` | 64×64 | 보스 초상화 | 임시 (실루엣 대체 예정) | `crew.json` startingBoss |
+| `portrait_crew_01` | 64×64 | 시작 조직원 "락" 초상화 | 임시 | `crew.json` startingCrew |
+| `portrait_crew_02` | 64×64 | 시작 조직원 "피즈" 초상화 | 임시 | `crew.json` startingCrew |
+| `portrait_crew_r01`~`portrait_crew_r12` | 64×64 | 영입 풀 조직원 12명 초상화 | 임시 | `crew.json` recruitPool |
+| `portrait_cop` | 64×64 | 이벤트: 경관 초상화 | 임시 | 단속·뇌물 요구 계열 이벤트 |
+| `portrait_swat` | 64×64 | 이벤트: 기업 진압대 초상화 | 임시 | 급습 계열 이벤트 |
+| `portrait_crew_generic` | 64×64 | 이벤트: 소속 조직원(익명) 초상화 | 임시 | 폭주 계열 이벤트 |
+| `portrait_stranger` | 64×64 | 이벤트: 낯선 인물 초상화 | 임시 | 영입 제안 계열 이벤트 |
+| `portrait_fixer` | 64×64 | 이벤트: 픽서/브로커 초상화 | 임시 | 거래 제안·뇌물 요구 계열 이벤트 |
+| `portrait_official` | 64×64 | 이벤트: 공무원 초상화 | 임시 | 뇌물 요구 계열 이벤트 |

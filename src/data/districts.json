@@ -1,0 +1,68 @@
+[
+  {
+    "id": "slums",
+    "nameKey": "districts.slums.name",
+    "tier": "lower",
+    "initialOwner": "player",
+    "baseDefense": 20,
+    "businessSlotCount": 2,
+    "incomeMultiplier": 0.8,
+    "heatMultiplier": 0.8,
+    "adjacentDistrictIds": ["harbor", "underground_market", "nightclub_row"]
+  },
+  {
+    "id": "harbor",
+    "nameKey": "districts.harbor.name",
+    "tier": "lower",
+    "initialOwner": "neutral",
+    "baseDefense": 30,
+    "businessSlotCount": 2,
+    "incomeMultiplier": 1.1,
+    "heatMultiplier": 1.0,
+    "adjacentDistrictIds": ["slums", "underground_market", "factory_district"]
+  },
+  {
+    "id": "underground_market",
+    "nameKey": "districts.underground_market.name",
+    "tier": "lower",
+    "initialOwner": "gang_a",
+    "baseDefense": 35,
+    "businessSlotCount": 2,
+    "incomeMultiplier": 1.0,
+    "heatMultiplier": 1.0,
+    "adjacentDistrictIds": ["slums", "harbor", "nightclub_row"]
+  },
+  {
+    "id": "nightclub_row",
+    "nameKey": "districts.nightclub_row.name",
+    "tier": "mid",
+    "initialOwner": "gang_b",
+    "baseDefense": 40,
+    "businessSlotCount": 3,
+    "incomeMultiplier": 1.3,
+    "heatMultiplier": 1.2,
+    "adjacentDistrictIds": ["slums", "underground_market", "factory_district", "corporate_zone"]
+  },
+  {
+    "id": "factory_district",
+    "nameKey": "districts.factory_district.name",
+    "tier": "mid",
+    "initialOwner": "neutral",
+    "baseDefense": 60,
+    "businessSlotCount": 2,
+    "incomeMultiplier": 1.0,
+    "heatMultiplier": 1.0,
+    "adjacentDistrictIds": ["harbor", "nightclub_row", "corporate_zone"]
+  },
+  {
+    "id": "corporate_zone",
+    "nameKey": "districts.corporate_zone.name",
+    "tier": "upper",
+    "initialOwner": "neutral",
+    "baseDefense": 80,
+    "businessSlotCount": 3,
+    "incomeMultiplier": 2.0,
+    "heatMultiplier": 2.0,
+    "adjacentDistrictIds": ["nightclub_row", "factory_district"]
+  }
+]
