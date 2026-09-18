@@ -40,6 +40,7 @@ function crewMemberFromDef(def: CrewDef, isBoss: boolean): CrewMember {
     status: 'active',
     injuredNightsRemaining: 0,
     wagePerNight: def.wagePerNight,
+    consecutiveRiskyNights: 0,
   };
 }
 

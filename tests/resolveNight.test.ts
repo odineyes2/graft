@@ -31,6 +31,7 @@ function makeTestCrew(id: string, statValue: number, traitIds: string[] = []): C
     status: 'active',
     injuredNightsRemaining: 0,
     wagePerNight: 0,
+    consecutiveRiskyNights: 0,
   };
 }
 

@@ -196,6 +196,32 @@ export interface HeatThresholds {
   readonly lockdownAt: number;
 }
 
+/** 인간성·충성도 위험 구간 판정 계수 (FR-CREW-05~06) */
+export interface CrewRiskSystemConfig {
+  /** 이 값 미만이면 매 밤 폭주 위험이 생긴다 */
+  readonly humanityRiskThreshold: number;
+  /** 인간성이 위험 구간일 때 밤마다 폭주 이벤트가 유발될 확률 */
+  readonly humanityRiskChance: number;
+  /** 이 값 미만이면 매 밤 이탈·배신 위험이 생긴다 */
+  readonly loyaltyRiskThreshold: number;
+  /** 충성도가 위험 구간일 때 밤마다 이탈·배신 이벤트가 유발될 확률 */
+  readonly loyaltyRiskChance: number;
+}
+
+/** 충성도 증감 계수 (FR-CREW-06) */
+export interface LoyaltySystemConfig {
+  /** 급여를 지급할 크레딧이 부족했을 때(체불) 충성도 감소량 */
+  readonly wageArrearsPenalty: number;
+  /** 이 밤 수만큼 공격·방어·정찰에 연속 배치되면 그 다음부터 매 밤 감소 판정 */
+  readonly riskyStreakThreshold: number;
+  /** 연속 위험 임무 배치가 임계치 이상일 때 밤마다 충성도 감소량 */
+  readonly riskyStreakPenalty: number;
+  /** 동료가 사망했을 때 생존 조직원 전원의 충성도 감소량 */
+  readonly crewDeathPenalty: number;
+  /** 휴식 행동으로 얻는 충성도 회복량 */
+  readonly restLoyaltyBonus: number;
+}
+
 /** 열기 자연 감소·구간별 이벤트 유발 확률 (FR-HEAT-01) */
 export interface HeatSystemConfig {
   /** 조용한 밤(행동으로 인한 열기 증가가 0)일 때 낮 열기 구간에서 감소하는 양 */
@@ -265,6 +291,8 @@ export interface BalanceConfig {
   };
   readonly actionResolution: ActionResolutionConfig;
   readonly heatSystem: HeatSystemConfig;
+  readonly crewRiskSystem: CrewRiskSystemConfig;
+  readonly loyaltySystem: LoyaltySystemConfig;
 }
 
 // ─── 콘텐츠 번들 ────────────────────────────────────────────────────────────────

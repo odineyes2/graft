@@ -46,5 +46,18 @@
     "naturalDecayAmount": 5,
     "policeEventChance": 0.4,
     "raidEventChance": 0.5
+  },
+  "crewRiskSystem": {
+    "humanityRiskThreshold": 20,
+    "humanityRiskChance": 0.15,
+    "loyaltyRiskThreshold": 30,
+    "loyaltyRiskChance": 0.15
+  },
+  "loyaltySystem": {
+    "wageArrearsPenalty": 15,
+    "riskyStreakThreshold": 3,
+    "riskyStreakPenalty": 5,
+    "crewDeathPenalty": 10,
+    "restLoyaltyBonus": 5
   }
 }

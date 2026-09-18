@@ -128,6 +128,8 @@ export interface CrewMember {
   injuredNightsRemaining: number;
   /** 급여 (새벽마다 차감, FR-RES-01) */
   wagePerNight: number;
+  /** 공격·방어·정찰에 연속으로 배치된 밤 수 (충성도 감소 판정용, FR-CREW-06) */
+  consecutiveRiskyNights: number;
 }
 
 // ─── 경쟁 갱단 (RivalGang) ───────────────────────────────────────────────────
