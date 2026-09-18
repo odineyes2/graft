@@ -39,6 +39,8 @@ export const ko = {
     fontSampleKo: '비 내리는 네온 도시, 그림자 속 갱단이 움직인다',
     fontSampleEn: 'GRAFT — NEON CITY UNDERWORLD',
     fontSampleNum: '0123456789',
+    tooltipSample: '툴팁 견본',
+    gaugeSample: '게이지 42/100',
   },
 
   districts: {

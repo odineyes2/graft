@@ -6,12 +6,12 @@
  * 이동만 한다.
  */
 
-import Phaser from 'phaser';
 import { palette } from '../ui/palette';
 import { FONT_FAMILY } from '../ui/fonts';
+import { TerminalScene } from '../ui/TerminalScene';
+import { createButton } from '../ui/button';
 import { ko } from '../i18n/ko';
 import { loadRun } from '../save/runSave';
-import { createMenuButton } from './menuButton';
 import { navigateTo, SCENE_KEYS } from './navigation';
 
 interface MenuItem {
@@ -20,12 +20,14 @@ interface MenuItem {
   readonly disabled?: boolean;
 }
 
-export class TitleScene extends Phaser.Scene {
+const BUTTON_WIDTH = 120;
+
+export class TitleScene extends TerminalScene {
   constructor() {
     super(SCENE_KEYS.title);
   }
 
-  create(): void {
+  createContent(): void {
     this.add
       .text(this.scale.width / 2, 50, ko.common.gameTitle, {
         fontFamily: FONT_FAMILY,
@@ -50,13 +52,13 @@ export class TitleScene extends Phaser.Scene {
     const startY = 130;
     const gapY = 22;
     items.forEach((item, index) => {
-      createMenuButton(
+      createButton(
         this,
-        this.scale.width / 2 - 50,
+        this.scale.width / 2 - BUTTON_WIDTH / 2,
         startY + index * gapY,
         `${index + 1}. ${item.label}`,
         item.onClick,
-        { disabled: item.disabled },
+        { disabled: item.disabled, width: BUTTON_WIDTH },
       );
     });
 

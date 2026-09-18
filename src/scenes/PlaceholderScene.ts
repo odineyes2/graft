@@ -6,14 +6,15 @@
  * T-36 조직원, T-41 유산)에서 이 씬을 대체한다.
  */
 
-import Phaser from 'phaser';
 import { palette } from '../ui/palette';
 import { FONT_FAMILY } from '../ui/fonts';
+import { TerminalScene } from '../ui/TerminalScene';
+import { createPanel } from '../ui/panel';
 import { ko } from '../i18n/ko';
 import { navigateBack } from './navigation';
 import type { SceneKey } from './navigation';
 
-export class PlaceholderScene extends Phaser.Scene {
+export class PlaceholderScene extends TerminalScene {
   private readonly title: string;
 
   constructor(sceneKey: SceneKey, title: string) {
@@ -21,7 +22,9 @@ export class PlaceholderScene extends Phaser.Scene {
     this.title = title;
   }
 
-  create(): void {
+  createContent(): void {
+    createPanel(this, 0, 0, this.scale.width, this.scale.height, { backgroundColor: 'bgBase', borderColor: 'borderDim' });
+
     this.add
       .text(this.scale.width / 2, 20, this.title, {
         fontFamily: FONT_FAMILY,

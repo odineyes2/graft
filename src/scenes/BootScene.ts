@@ -1,7 +1,9 @@
-import Phaser from 'phaser';
 import { palette, type PaletteToken, paletteColorNumber } from '../ui/palette';
 import { createSilhouetteTexture, createSolidRectTexture } from '../ui/placeholder';
 import { FONT_FAMILY } from '../ui/fonts';
+import { TerminalScene } from '../ui/TerminalScene';
+import { createGauge } from '../ui/gauge';
+import { attachTooltip } from '../ui/tooltip';
 import { ko } from '../i18n/ko';
 import { SCENE_KEYS } from './navigation';
 
@@ -11,12 +13,12 @@ const SWATCH_COLS = 8;
 /** 아무 입력도 없을 때 타이틀로 자동 전환하기까지의 시간 (ms) */
 const AUTO_ADVANCE_DELAY_MS = 2500;
 
-export class BootScene extends Phaser.Scene {
+export class BootScene extends TerminalScene {
   constructor() {
     super(SCENE_KEYS.boot);
   }
 
-  create(): void {
+  createContent(): void {
     this.add
       .text(this.scale.width / 2, 12, ko.common.gameTitle, {
         fontFamily: FONT_FAMILY,
@@ -50,6 +52,7 @@ export class BootScene extends Phaser.Scene {
     });
 
     this.drawPlaceholderPreview(360, 92);
+    this.drawComponentPreview(360, 140);
 
     this.goToTitle = this.goToTitle.bind(this);
     this.input.once('pointerdown', this.goToTitle);
@@ -79,7 +82,17 @@ export class BootScene extends Phaser.Scene {
     createSolidRectTexture(this, 'placeholder-tile', 16, 16, paletteColorNumber('factionNeutral'));
     createSilhouetteTexture(this, 'placeholder-portrait', 32, paletteColorNumber('textMuted'));
 
-    this.add.image(x, y, 'placeholder-tile').setOrigin(0, 0);
+    const tile = this.add.image(x, y, 'placeholder-tile').setOrigin(0, 0);
     this.add.image(x + 24, y, 'placeholder-portrait').setOrigin(0, 0);
+
+    attachTooltip(this, tile, ko.boot.tooltipSample);
+  }
+
+  /** T-31 UI 컴포넌트(게이지) 견본. 버튼·패널은 TitleScene/HideoutScene에서 실제로 쓰인다. */
+  private drawComponentPreview(x: number, y: number): void {
+    createGauge(this, x, y, 80, 8, 42, 100, {
+      fillColor: 'heatMid',
+      label: ko.boot.gaugeSample,
+    });
   }
 }
