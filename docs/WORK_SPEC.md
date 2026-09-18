@@ -39,7 +39,7 @@
 - **산출물:** `src/core/types.ts` (RunState, District, Business, CrewMember, Cyberware, RivalGang, EventCard, Assignment, NightReport, LegacyState).
 - **완료 조건:** 타입만으로 초기 런 상태 1개를 생성하는 테스트가 통과한다. Phaser·DOM 참조가 없다.
 
-### [ ] T-11 시드 RNG
+### [x] T-11 시드 RNG
 - **산출물:** `src/core/rng.ts` (정수 범위, 실수, 가중치 선택, 셔플, 상태 직렬화).
 - **완료 조건:** 같은 시드로 10,000회 호출한 결과가 항상 동일하다는 테스트, RNG 상태를 저장·복원한 뒤 이어지는 값이 동일하다는 테스트가 통과한다.
 
