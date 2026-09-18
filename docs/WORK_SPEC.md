@@ -34,7 +34,7 @@
 
 ## M1. 코어 로직 (렌더링 없음, `src/core/`)
 
-### [ ] T-10 게임 상태 모델
+### [x] T-10 게임 상태 모델
 - **목표:** 요구사항의 모든 P0 엔티티를 타입으로 정의한다.
 - **산출물:** `src/core/types.ts` (RunState, District, Business, CrewMember, Cyberware, RivalGang, EventCard, Assignment, NightReport, LegacyState).
 - **완료 조건:** 타입만으로 초기 런 상태 1개를 생성하는 테스트가 통과한다. Phaser·DOM 참조가 없다.
