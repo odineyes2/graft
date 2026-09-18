@@ -6,6 +6,7 @@
     "requiredStat": "force",
     "incomePerLevel": [40, 70, 110],
     "heatPerLevel": [4, 6, 9],
+    "maintenanceCostPerLevel": [10, 18, 28],
     "buildCost": 200,
     "upgradeCost": [150, 300],
     "specialEffect": "reputation_scaled_income"
@@ -17,6 +18,7 @@
     "requiredStat": "tech",
     "incomePerLevel": [60, 100, 150],
     "heatPerLevel": [6, 9, 13],
+    "maintenanceCostPerLevel": [15, 25, 38],
     "buildCost": 350,
     "upgradeCost": [250, 450],
     "specialEffect": "cyberware_discount"
@@ -28,6 +30,7 @@
     "requiredStat": "force",
     "incomePerLevel": [60, 100, 150],
     "heatPerLevel": [6, 9, 13],
+    "maintenanceCostPerLevel": [15, 25, 38],
     "buildCost": 350,
     "upgradeCost": [250, 450],
     "specialEffect": "reputation_gain"
@@ -39,6 +42,7 @@
     "requiredStat": "tech",
     "incomePerLevel": [90, 150, 220],
     "heatPerLevel": [10, 15, 22],
+    "maintenanceCostPerLevel": [20, 35, 55],
     "buildCost": 500,
     "upgradeCost": [350, 600],
     "specialEffect": "requires_hacker"

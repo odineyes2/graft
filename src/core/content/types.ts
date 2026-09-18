@@ -59,6 +59,8 @@ export interface BusinessDef {
   readonly incomePerLevel: readonly [number, number, number];
   /** 레벨 1~3별 기본 열기 증가량 */
   readonly heatPerLevel: readonly [number, number, number];
+  /** 레벨 1~3별 매 새벽 차감되는 유지비 (FR-RES-01) */
+  readonly maintenanceCostPerLevel: readonly [number, number, number];
   readonly buildCost: number;
   /** [레벨1→2 비용, 레벨2→3 비용] */
   readonly upgradeCost: readonly [number, number];

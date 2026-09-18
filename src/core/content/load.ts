@@ -57,6 +57,7 @@ interface RawBusinessJson {
   readonly requiredStat: string;
   readonly incomePerLevel: readonly number[];
   readonly heatPerLevel: readonly number[];
+  readonly maintenanceCostPerLevel: readonly number[];
   readonly buildCost: number;
   readonly upgradeCost: readonly number[];
   readonly specialEffect: string;
@@ -65,12 +66,16 @@ interface RawBusinessJson {
 function mapBusiness(raw: RawBusinessJson): BusinessDef {
   const [i1, i2, i3] = raw.incomePerLevel;
   const [h1, h2, h3] = raw.heatPerLevel;
+  const [m1, m2, m3] = raw.maintenanceCostPerLevel;
   const [u1, u2] = raw.upgradeCost;
   if (i1 === undefined || i2 === undefined || i3 === undefined) {
     throw new Error(`businesses.json: '${raw.kind}'의 incomePerLevel은 3개 값이 필요하다`);
   }
   if (h1 === undefined || h2 === undefined || h3 === undefined) {
     throw new Error(`businesses.json: '${raw.kind}'의 heatPerLevel은 3개 값이 필요하다`);
+  }
+  if (m1 === undefined || m2 === undefined || m3 === undefined) {
+    throw new Error(`businesses.json: '${raw.kind}'의 maintenanceCostPerLevel은 3개 값이 필요하다`);
   }
   if (u1 === undefined || u2 === undefined) {
     throw new Error(`businesses.json: '${raw.kind}'의 upgradeCost는 2개 값이 필요하다`);
@@ -81,6 +86,7 @@ function mapBusiness(raw: RawBusinessJson): BusinessDef {
     requiredStat: raw.requiredStat as BusinessDef['requiredStat'],
     incomePerLevel: [i1, i2, i3],
     heatPerLevel: [h1, h2, h3],
+    maintenanceCostPerLevel: [m1, m2, m3],
     upgradeCost: [u1, u2],
     specialEffect: raw.specialEffect as BusinessDef['specialEffect'],
   };
