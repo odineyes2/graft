@@ -8,6 +8,31 @@
 export const ko = {
   common: {
     gameTitle: 'GRAFT',
+    underConstruction: '(준비 중)',
+  },
+  nav: {
+    back: '뒤로가기 (ESC)',
+  },
+  title: {
+    newRun: '새 런',
+    continueRun: '이어하기',
+    legacy: '유산',
+    settings: '설정',
+  },
+  hideout: {
+    title: '은신처',
+    goMap: '지도 (M)',
+    goCrew: '조직원 (C)',
+    goReport: '결산 (R)',
+  },
+  map: {
+    title: '도시 지도',
+  },
+  report: {
+    title: '결산 리포트',
+  },
+  settings: {
+    title: '설정',
   },
   boot: {
     paletteLabel: '팔레트 견본',
@@ -59,6 +84,7 @@ export const ko = {
   },
 
   legacy: {
+    title: '유산',
     start_credits: { name: '비상 자금', description: '다음 런 시작 크레딧이 늘어난다.' },
     start_extra_crew: { name: '오랜 연줄', description: '다음 런에 조직원 한 명을 더 데리고 시작한다.' },
     start_less_heat: { name: '뒷돈 인맥', description: '다음 런 시작 열기가 줄어든다.' },
@@ -67,6 +93,7 @@ export const ko = {
   },
 
   crew: {
+    title: '조직원',
     boss: { name: '보스' },
     crew_01: { name: '락' },
     crew_02: { name: '피즈' },

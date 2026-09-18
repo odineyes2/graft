@@ -1,16 +1,19 @@
 import Phaser from 'phaser';
 import { palette, type PaletteToken, paletteColorNumber } from '../ui/palette';
 import { createSilhouetteTexture, createSolidRectTexture } from '../ui/placeholder';
+import { FONT_FAMILY } from '../ui/fonts';
 import { ko } from '../i18n/ko';
+import { SCENE_KEYS } from './navigation';
 
-const FONT_FAMILY = 'Galmuri9, monospace';
 const SWATCH_SIZE = 10;
 const SWATCH_GAP = 2;
 const SWATCH_COLS = 8;
+/** 아무 입력도 없을 때 타이틀로 자동 전환하기까지의 시간 (ms) */
+const AUTO_ADVANCE_DELAY_MS = 2500;
 
 export class BootScene extends Phaser.Scene {
   constructor() {
-    super('boot');
+    super(SCENE_KEYS.boot);
   }
 
   create(): void {
@@ -47,6 +50,15 @@ export class BootScene extends Phaser.Scene {
     });
 
     this.drawPlaceholderPreview(360, 92);
+
+    this.goToTitle = this.goToTitle.bind(this);
+    this.input.once('pointerdown', this.goToTitle);
+    this.input.keyboard?.once('keydown', this.goToTitle);
+    this.time.delayedCall(AUTO_ADVANCE_DELAY_MS, this.goToTitle);
+  }
+
+  private goToTitle(): void {
+    this.scene.start(SCENE_KEYS.title);
   }
 
   private drawPaletteSwatches(originX: number, originY: number): void {

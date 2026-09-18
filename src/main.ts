@@ -1,5 +1,10 @@
 import Phaser from 'phaser';
 import { BootScene } from './scenes/BootScene';
+import { TitleScene } from './scenes/TitleScene';
+import { HideoutScene } from './scenes/HideoutScene';
+import { PlaceholderScene } from './scenes/PlaceholderScene';
+import { SCENE_KEYS } from './scenes/navigation';
+import { ko } from './i18n/ko';
 import { palette } from './ui/palette';
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -15,7 +20,16 @@ const config: Phaser.Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: Phaser.Scale.MAX_ZOOM,
   },
-  scene: [BootScene],
+  scene: [
+    BootScene,
+    TitleScene,
+    HideoutScene,
+    new PlaceholderScene(SCENE_KEYS.map, ko.map.title),
+    new PlaceholderScene(SCENE_KEYS.crew, ko.crew.title),
+    new PlaceholderScene(SCENE_KEYS.report, ko.report.title),
+    new PlaceholderScene(SCENE_KEYS.settings, ko.settings.title),
+    new PlaceholderScene(SCENE_KEYS.legacy, ko.legacy.title),
+  ],
 };
 
 async function boot(): Promise<void> {
