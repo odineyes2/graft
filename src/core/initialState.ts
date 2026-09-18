@@ -110,6 +110,7 @@ export function createInitialRunState(
 
     districts,
     businesses: [],
+    maxDistrictsOwned: districts.filter((d) => d.owner === 'player').length,
 
     crew,
     rivals,

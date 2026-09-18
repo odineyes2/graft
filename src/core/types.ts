@@ -355,6 +355,8 @@ export interface RunState {
   // 맵
   districts: ReadonlyArray<District>;
   businesses: ReadonlyArray<Business>;
+  /** 이 런에서 동시에 소유한 구역 수의 최댓값 (런 종료 요약용, FR-RUN-05) */
+  maxDistrictsOwned: number;
 
   // 조직원
   crew: ReadonlyArray<CrewMember>;

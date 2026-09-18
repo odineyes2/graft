@@ -196,6 +196,16 @@ export interface HeatThresholds {
   readonly lockdownAt: number;
 }
 
+/** 런 종료 시 유산 포인트 지급 계수 (FR-LEG-01) */
+export interface LegacySystemConfig {
+  /** 생존한 밤 1개당 유산 포인트 */
+  readonly pointsPerNightSurvived: number;
+  /** 이 런에서 최대로 소유했던 구역 1개당 유산 포인트 */
+  readonly pointsPerDistrictOwnedPeak: number;
+  /** 승리로 끝났을 때 추가 지급되는 유산 포인트 */
+  readonly victoryBonus: number;
+}
+
 /** 인간성·충성도 위험 구간 판정 계수 (FR-CREW-05~06) */
 export interface CrewRiskSystemConfig {
   /** 이 값 미만이면 매 밤 폭주 위험이 생긴다 */
@@ -306,6 +316,7 @@ export interface BalanceConfig {
   readonly crewRiskSystem: CrewRiskSystemConfig;
   readonly loyaltySystem: LoyaltySystemConfig;
   readonly rivalAi: RivalAiConfig;
+  readonly legacySystem: LegacySystemConfig;
 }
 
 // ─── 콘텐츠 번들 ────────────────────────────────────────────────────────────────

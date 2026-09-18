@@ -65,5 +65,10 @@
     "damageOnSuccess": 15,
     "damageOnFailure": 3,
     "capturedDistrictDefenseFraction": 0.5
+  },
+  "legacySystem": {
+    "pointsPerNightSurvived": 1,
+    "pointsPerDistrictOwnedPeak": 2,
+    "victoryBonus": 10
   }
 }
